@@ -1,10 +1,11 @@
 # engin
 
-A new Flutter project.
+A Flutter Project that shows the video games information  .
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project consumes the RAWG api and gives the games information.
+
 
 A few resources to get you started if this is your first Flutter project:
 
