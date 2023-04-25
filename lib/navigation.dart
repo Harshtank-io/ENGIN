@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:engin/views/categoryPage.dart';
 import 'package:engin/views/favouritesPage.dart';
 import 'package:engin/views/homePage.dart';
+import 'package:engin/views/newsPage.dart';
 import 'package:engin/views/profilePage.dart';
 import 'package:engin/views/searchPage.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _NavigationState extends State<Navigation> {
   static final List<Widget> _navs = [
     const HomePage(),
     SearchPage(),
-    FavouritesPage(),
+    NewsPage(),
     ProfilePage(),
   ];
 

@@ -50,7 +50,7 @@ class _categoryGameListPageState extends State<categoryGameListPage> {
                           game.name,
                           style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                         ),
-                        subtitle: Text(game.released!),
+                        subtitle: Text(game.released as String),
                         trailing: Icon(Icons.arrow_forward_ios),
                         onTap: () {
                           Navigator.pushNamed(context, '/game_details', arguments: game);

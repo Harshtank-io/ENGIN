@@ -65,11 +65,6 @@ class GameDetailsPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16.0),
-            Text(
-              game.description ?? " ",
-              style: GoogleFonts.poppins(fontSize: 18.0),
-            ),
-            SizedBox(height: 16.0),
             Row(
               children: [
                 IconButton(
