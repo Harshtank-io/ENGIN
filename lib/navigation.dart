@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:engin/views/categoryPage.dart';
-import 'package:engin/views/favouritesPage.dart';
 import 'package:engin/views/homePage.dart';
 import 'package:engin/views/newsPage.dart';
 import 'package:engin/views/profilePage.dart';
+import 'package:engin/views/searchNews.dart';
 import 'package:engin/views/searchPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +23,9 @@ class _NavigationState extends State<Navigation> {
     const HomePage(),
     SearchPage(),
     NewsPage(),
-    ProfilePage(),
+    //ProfilePage(),
+    SearchNewsPage()
+
   ];
 
   void iteamTapped(int index){

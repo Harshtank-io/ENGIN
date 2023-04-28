@@ -17,5 +17,20 @@ class GameNewsService {
     }
     throw Exception('Failed to load game news');
   }
+
+  static Future<List<Article>> searchGameNews(String query) async {
+    final url = Uri.parse('$baseUrl/everything?q=$query&sortBy=popularity&apiKey=$apiKey');
+    final response = await http.get(url);
+    final parsed = json.decode(response.body);
+
+    if (parsed['status'] == 'ok') {
+      return (parsed['articles'] as List)
+          .map((article) => Article.fromJson(article))
+          .toList();
+    } else {
+      throw Exception(parsed['message']);
+    }
+  }
+
 }
 

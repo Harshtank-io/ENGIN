@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         child: GestureDetector(
                           onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => GameDetailsPage(game : game)));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,

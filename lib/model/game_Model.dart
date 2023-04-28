@@ -8,10 +8,8 @@ class Game {
   double rating;
   int ratingsCount;
   int? playtime;
-  final List<Genre> genres;
-  // final List<Platforms> platforms;
-  // final List<Publishers> publishers;
-  // final List<Developers> developers;
+  final List<Genre>? genres;
+  final List<Platform>? platforms;
   String? websiteUrl;
   String? redditUrl;
   String? twitchUrl;
@@ -29,10 +27,8 @@ class Game {
     required this.rating,
     required this.ratingsCount,
     this.playtime,
-    required this.genres,
-    // required this.platforms,
-    // required this.publishers,
-    // required this.developers,
+    this.genres,
+    this.platforms,
     this.websiteUrl,
     this.redditUrl,
     this.twitchUrl,
@@ -43,17 +39,12 @@ class Game {
   });
 
   factory Game.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> genreData = json['genres'];
-    final List<Genre> genres = genreData.map((genre) => Genre.fromJson(genre)).toList();
+    final List<dynamic>? genreData = json['genres'];
+    final List<Genre>? genres = genreData?.map((genre) => Genre.fromJson(genre)).toList();
 
-    // final List<dynamic> platformData = json['platforms'];
-    // final List<Platforms> platforms = platformData.map((platforms) => Platforms.fromJson(platforms)).toList();
-    //
-    // final List<dynamic> publisherData = json['publishers'];
-    // final List<Publishers> publishers = publisherData.map((publishers) => Publishers.fromJson(publishers)).toList();
-    //
-    // final List<dynamic> developerData = json['developers'];
-    // final List<Developers> developers = developerData.map((developers) => Developers.fromJson(developers)).toList();
+
+    final List<dynamic>? platformData = json['platforms'];
+    final List<Platform>? platforms = platformData?.map((platform) => Platform.fromJson(platform)).toList();
 
     return Game(
       id: json['id'],
@@ -66,9 +57,7 @@ class Game {
       ratingsCount: json['ratings_count'],
       playtime: json['playtime'] != null ? json['playtime'] : null,
       genres: genres,
-      // developers: developers,
-      // platforms: platforms,
-      // publishers: publishers,
+      platforms: platforms,
       websiteUrl: json['website'],
       redditUrl: json['reddit_url'],
       twitchUrl: json['twitch_url'],
@@ -79,6 +68,25 @@ class Game {
     );
   }
 }
+
+class Platform {
+  final int id;
+  final String name;
+
+  Platform({
+    required this.id,
+    required this.name,
+  });
+
+  factory Platform.fromJson(Map<String, dynamic> json) {
+    return Platform(
+      id: json['platform']['id'],
+      name: json['platform']['name'],
+    );
+  }
+}
+
+
 
 class Genre {
   final int id;

@@ -18,6 +18,7 @@ class _SearchPageState extends State<SearchPage> {
   Future<void> _searchGames(String query) async {
     setState(() {
       _isLoading = true;
+
     });
     try {
       final results = await GameService.searchGames(query);
@@ -52,25 +53,29 @@ class _SearchPageState extends State<SearchPage> {
           ? Center(child: CircularProgressIndicator())
           : _searchResults.isEmpty
           ? Center(
-          child: CategoryPage(),)
-          : ListView.builder(
+          child: CategoryPage(),
+      )
+          : Container(
+        height: MediaQuery.of(context).size.height,
+            child: ListView.builder(
         itemCount: _searchResults.length,
         itemBuilder: (context, index) {
-          final game = _searchResults[index];
-          return GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GameDetailsPage(game : game)));
-            },
-            child: ListTile(
-              title: Text(game.name),
-              subtitle: Text(game.released?.toString() ?? ""),
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(game.backgroundImageUrl as String),
+            final game = _searchResults[index];
+            return GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => GameDetailsPage(game : game)));
+              },
+              child: ListTile(
+                title: Text(game.name),
+                subtitle: Text(game.released.toString()),
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(game.backgroundImageUrl ?? ""),
+                ),
               ),
-            ),
-          );
+            );
         },
       ),
+          ),
     );
   }
 }
