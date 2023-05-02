@@ -22,9 +22,10 @@ class _NavigationState extends State<Navigation> {
   static final List<Widget> _navs = [
     const HomePage(),
     SearchPage(),
-    NewsPage(),
-    //ProfilePage(),
-    SearchNewsPage()
+    SearchNewsPage(),
+    // NewsPage(),
+    ProfilePage(),
+
 
   ];
 

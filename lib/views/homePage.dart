@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:engin/model/game_Model.dart';
 import 'package:engin/service/gameService.dart';
@@ -87,10 +88,16 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Expanded(
-                                child: Image.network(
-                                  game.backgroundImageUrl!,
+                                child: CachedNetworkImage(
+                                  imageUrl: game.backgroundImageUrl!,
                                   fit: BoxFit.cover,
+                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
                                 ),
+                                // Image.network(
+                                //   game.backgroundImageUrl!,
+                                //   fit: BoxFit.cover,
+                                // ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -135,7 +142,13 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
-                          child: Image.network(game.backgroundImageUrl!, fit: BoxFit.cover),
+                          child: CachedNetworkImage(
+                            imageUrl: game.backgroundImageUrl!,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) => Icon(Icons.error),
+                          ),
+                          //Image.network(game.backgroundImageUrl!, fit: BoxFit.cover),
                         ),
                       );
                     },

@@ -49,7 +49,7 @@ class _SearchNewsPageState extends State<SearchNewsPage> {
               child: TextField(
                 controller: _searchController,
                 decoration:  InputDecoration(
-                  hintText: 'Search games...',
+                  hintText: 'Search News...',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15)
                   ),

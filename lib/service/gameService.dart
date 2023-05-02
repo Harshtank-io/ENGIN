@@ -23,7 +23,7 @@ class GameService {
 
   // For Seraching the games
   static Future<List<Game>> searchGames(String query) async{
-    final response = await http.get(Uri.parse('$baseUrl/games?key=$key&search=$query'));
+    final response = await http.get(Uri.parse('$baseUrl/games?key=$key&genres=$query&page_size=100'));
     if(response.statusCode == 200){
       final data = jsonDecode(response.body);
       final List<dynamic> gameData = data['results'];
@@ -32,7 +32,5 @@ class GameService {
     }
     throw Exception('Failed to Search Game');
   }
-
-
 
 }

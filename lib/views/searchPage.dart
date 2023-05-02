@@ -37,45 +37,58 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: TextField(
-          controller: _searchController,
-          decoration: const InputDecoration(
-            hintText: 'Search games...',
-            border: InputBorder.none,
-          ),
-          onSubmitted: (query) {
-            _searchGames(query);
-          },
-        ),
-      ),
-      body: _isLoading
-          ? Center(child: CircularProgressIndicator())
-          : _searchResults.isEmpty
-          ? Center(
-          child: CategoryPage(),
-      )
-          : Container(
-        height: MediaQuery.of(context).size.height,
-            child: ListView.builder(
-        itemCount: _searchResults.length,
-        itemBuilder: (context, index) {
-            final game = _searchResults[index];
-            return GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => GameDetailsPage(game : game)));
-              },
-              child: ListTile(
-                title: Text(game.name),
-                subtitle: Text(game.released.toString()),
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(game.backgroundImageUrl ?? ""),
+      body: Column(
+        children: [
+          SizedBox(height: 30,),
+          Container(
+            width: 350,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 40.0),
+              child: TextField(
+                controller: _searchController,
+                decoration:  InputDecoration(
+                  hintText: 'Search games...',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15)
+                  ),
                 ),
+                onSubmitted: (query) {
+                  _searchGames(query);
+                },
               ),
-            );
-        },
-      ),
+            ),
           ),
+          Expanded(
+            child: _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : _searchResults.isEmpty
+                ? Center(
+                child: CategoryPage(),
+            )
+                : Container(
+              height: MediaQuery.of(context).size.height,
+                  child: ListView.builder(
+              itemCount: _searchResults.length,
+              itemBuilder: (context, index) {
+                  final game = _searchResults[index];
+                  return GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => GameDetailsPage(game : game)));
+                    },
+                    child: ListTile(
+                      title: Text(game.name),
+                      subtitle: Text(game.released.toString()),
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(game.backgroundImageUrl ?? ""),
+                      ),
+                    ),
+                  );
+              },
+            ),
+                ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,12 +1,13 @@
 import 'package:engin/model/game_Model.dart';
 import 'package:engin/service/gameService.dart';
+import 'package:engin/views/GameDetailsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class categoryGameListPage extends StatefulWidget {
   final String category;
-
-  const categoryGameListPage({Key? key, required this.category, required List<Game> games}) : super(key: key);
+  final List<Game> games;
+  const categoryGameListPage({Key? key, required this.category, required this.games}) : super(key: key);
 
   @override
   _categoryGameListPageState createState() => _categoryGameListPageState();
@@ -38,7 +39,7 @@ class _categoryGameListPageState extends State<categoryGameListPage> {
             if (snapshot.hasData) {
               List<Game> games = snapshot.data!;
               return ListView.builder(
-                itemCount: games.length,
+                itemCount: games.length ?? 0,
                 itemBuilder: (context, index) {
                   Game game = games[index];
                   return Padding(
@@ -50,10 +51,9 @@ class _categoryGameListPageState extends State<categoryGameListPage> {
                           game.name,
                           style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                         ),
-                        subtitle: Text(game.released as String),
                         trailing: Icon(Icons.arrow_forward_ios),
                         onTap: () {
-                          Navigator.pushNamed(context, '/game_details', arguments: game);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => GameDetailsPage(game : game)));
                         },
                       ),
                     ),

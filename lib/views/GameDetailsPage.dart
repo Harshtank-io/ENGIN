@@ -21,6 +21,7 @@ class GameDetailsPage extends StatelessWidget {
             icon: Icon(Icons.arrow_back_ios,color: Colors.black,))
         ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -37,50 +38,25 @@ class GameDetailsPage extends StatelessWidget {
                       image: NetworkImage(game.backgroundImageUrl!),
                       fit: BoxFit.cover,
                     ),
-                    // boxShadow:[
-                    //   BoxShadow(
-                    //     color: Colors.grey.withOpacity(0.3), //color of shadow
-                    //     spreadRadius: 5, //spread radius
-                    //     blurRadius: 7, // blur radius
-                    //     offset: Offset(0, 2), // changes position of shadow
-                    //   ),
-                    // ],
                   ),
                 ),
                 SizedBox(height: 16.0),
                 Text(
                   game.name,
-                  style: GoogleFonts.poppins(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.poppins(fontSize: 26.0, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 8.0),
-                Row(
-                  children: [
-                    Text("Released: ", style: GoogleFonts.poppins(fontSize: 18.0)),
-                    Text(
-                      game.released?.toString() ?? "",
-                      style: GoogleFonts.poppins(fontSize: 18.0),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  'Genres: ${game.genres?.map((genre) => genre.name).join(", ")}',
-                  style: GoogleFonts.poppins(fontSize: 16),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  'Platforms: ${game.platforms?.map((pla) => pla.name).join(", ")}',
-                  style: GoogleFonts.poppins(fontSize: 16),
-                ),
-                SizedBox(height: 16.0),
                 Row(
                   children: [
                     Text(
                       "Rating:",
-                      style: GoogleFonts.poppins(fontSize: 18.0),
+                      style: GoogleFonts.poppins(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    SizedBox(width: 8.0),
-                    Icon(Icons.star, color: Colors.yellow),
+                    const SizedBox(width: 8.0),
+                    Icon(Icons.star, color: Colors.yellow[800]),
                     SizedBox(width: 4.0),
                     Text(
                       game.rating.toString(),
@@ -88,23 +64,84 @@ class GameDetailsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 8.0),
                 Row(
                   children: [
-                    IconButton(
-                      icon:Icon(Icons.web),
-                      //Image.asset("assets/icons/website.png"),
-                      onPressed: () => launchURL(game.websiteUrl!),
+                    Text("Released: ", style: GoogleFonts.poppins(
+                        fontSize:20.0,
+                      fontWeight: FontWeight.bold
+                    )),
+                    Text(
+                      game.released?.toString() ?? "",
+                      style: GoogleFonts.poppins(fontSize: 18.0),
                     ),
-                    SizedBox(width: 8.0),
-                    IconButton(
-                      icon: Icon(Icons.play_arrow),
-                      onPressed: () => launchURL(game.youtubeUrl!),
+                  ],
+                ),
+                SizedBox(height: 8.0),
+                Row(
+                  children: [
+                    Text('Genres : ',style: GoogleFonts.poppins(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold
+                    ),),
+                    Text(
+                      '${game.genres?.map((genre) => genre.name).join(", ")}',
+                      style: GoogleFonts.poppins(fontSize: 16),
                     ),
-                    SizedBox(width: 8.0),
-                    IconButton(
-                      icon: Icon(Icons.store,size: 30,),
-                      onPressed: () => launchURL(game.storeUrl!),
+                  ],
+                ),
+                SizedBox(height: 8.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Stores:',
+                      style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      children: game.stores.map((st) => Chip(label: Text(st.name))).toList() ?? [],
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Platforms:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      children: game.platforms?.map((plt) => Chip(label: Text(plt.name))).toList() ??
+                          [],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Tags:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      children: game.tags?.map((tag) => Chip(label: Text(tag.name))).toList() ??
+                          [],
                     ),
                   ],
                 ),
@@ -115,11 +152,11 @@ class GameDetailsPage extends StatelessWidget {
       ),
     );
   }
-  void launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+  void launchStore(String? storeUrl) async {
+    if (storeUrl != null && await canLaunch(storeUrl)) {
+      await launch(storeUrl);
     } else {
-      throw 'Could not launch $url';
+      throw 'Could not launch store';
     }
   }
-}
+  }
